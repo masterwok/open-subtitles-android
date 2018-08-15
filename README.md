@@ -1,4 +1,4 @@
-[![Release](https://jitpack.io/v/masterwok/simple-torrent-android.svg)](https://jitpack.io/#masterwok/open-subtitles-android)
+[![Release](https://jitpack.io/v/masterwok/open-subtitles-android.svg)](https://jitpack.io/#masterwok/open-subtitles-android)
 
 # open-subtitles-android
 An Android library for querying and downloading subtitles from [Open Subtitles](https://opensubtitles.org).
