@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Demo Open Subtitles Android</string>
+    <string name="text_view_demo">Check your downloads directory for downloaded subtitle file after accepting WRITE_EXTERNAL_STORAGE permission.</string>
+</resources>
