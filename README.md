@@ -5,12 +5,12 @@ An Android library for querying and downloading subtitles from [Open Subtitles](
 
 ## Usage
 
-The ```OpenSubtitlesUrlBuilder``` is used to build a valid Open Subtitels url ([as described here](https://forum.opensubtitles.org/viewtopic.php?f=8&t=16453#p39771)). For example, the following will build a url that is used to search for the english subtitles of the movie Hackers from 1995:
+The ```OpenSubtitlesUrlBuilder``` is used to build a valid Open Subtitels url ([as described here](https://forum.opensubtitles.org/viewtopic.php?f=8&t=16453#p39771)). For example, the following will build a url that is used to search for the German subtitles of the movie Hackers from 1995:
 
 ```kotlin
 val url = OpenSubtitlesUrlBuilder()
         .query("Hackers 1995")
-        .subLanguageId("eng")
+        .subLanguageId(SubtitleLanguage.German)
         .build()
         
 // url = "https://rest.opensubtitles.org/search/query-Hackers+1995/sublanguageid-eng"
@@ -55,6 +55,6 @@ and add the following in the dependent module:
 
 ```gradle
 dependencies {
-    implementation 'com.github.masterwok:open-subtitles-android:0.0.1'
+    implementation 'com.github.masterwok:open-subtitles-android:0.0.2'
 }
 ```
