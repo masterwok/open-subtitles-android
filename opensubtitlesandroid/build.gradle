@@ -24,6 +24,7 @@ android {
 }
 
 ext {
+    version_kotlin_reflect = '1.2.60'
     version_fuel = '1.15.0'
     version_gson = '2.8.5'
 }
@@ -33,6 +34,7 @@ dependencies {
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$version_kotlin_reflect"
 
     // Fuel
     implementation "com.github.kittinunf.fuel:fuel-android:$version_fuel"

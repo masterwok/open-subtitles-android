@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
         val url = OpenSubtitlesUrlBuilder()
                 .query("Hackers 1995")
-                .subLanguageId("eng")
+                .subLanguageId(SubtitleLanguage.German)
                 .build()
 
         val searchResults = subtitleService.search(
