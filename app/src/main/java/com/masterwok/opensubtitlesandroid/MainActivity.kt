@@ -54,8 +54,8 @@ class MainActivity : AppCompatActivity() {
         val subtitleService = OpenSubtitlesService()
 
         val url = OpenSubtitlesUrlBuilder()
-                .query("The Hunt for Red October")
-                .subLanguageId(SubtitleLanguage.Finnish)
+                .query("Hackers 1995")
+                .subLanguageId(SubtitleLanguage.English)
                 .build()
 
         val searchResults = subtitleService.search(
