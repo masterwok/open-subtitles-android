@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.masterwok.opensubtitlesandroid.extensions.appCompatRequestPermissions
 import com.masterwok.opensubtitlesandroid.extensions.isPermissionGranted
@@ -13,6 +14,10 @@ import com.masterwok.opensubtitlesandroid.services.OpenSubtitlesService
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        const val Tag = "OpenSubtitlesDemo"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +54,8 @@ class MainActivity : AppCompatActivity() {
         val subtitleService = OpenSubtitlesService()
 
         val url = OpenSubtitlesUrlBuilder()
-                .query("Hackers 1995")
-                .subLanguageId(SubtitleLanguage.German)
+                .query("The Hunt for Red October")
+                .subLanguageId(SubtitleLanguage.Finnish)
                 .build()
 
         val searchResults = subtitleService.search(
@@ -58,7 +63,12 @@ class MainActivity : AppCompatActivity() {
                 , url
         )
 
-        val firstSubtitleItem = searchResults.first()
+        val firstSubtitleItem = searchResults.firstOrNull()
+
+        if (firstSubtitleItem == null) {
+            Log.w(Tag, "No subtitles found. Try changing the language or query.")
+            return
+        }
 
         val outputFile = File(downloadLocation, firstSubtitleItem.SubFileName)
 

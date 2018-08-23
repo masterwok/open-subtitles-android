@@ -4,12 +4,12 @@ import android.content.Context
 import android.net.Uri
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.httpGet
-import com.masterwok.opensubtitlesandroid.extensions.getByName
+import com.masterwok.opensubtitlesandroid.extensions.getByNameOrDefaultToLargest
+import com.masterwok.opensubtitlesandroid.extensions.getPathExtension
 import com.masterwok.opensubtitlesandroid.models.OpenSubtitleItem
 import com.masterwok.opensubtitlesandroid.services.contracts.OpenSubtitlesService
 import java.io.File
 import java.io.OutputStream
-import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 
 
@@ -22,7 +22,10 @@ class OpenSubtitlesService : OpenSubtitlesService {
     /**
      * Blocking search of the Open Subtitles REST API.
      */
-    override fun search(userAgent: String, url: String): Array<OpenSubtitleItem> = url
+    override fun search(
+            userAgent: String
+            , url: String
+    ): Array<OpenSubtitleItem> = url
             .httpGet()
             .header("User-Agent" to userAgent)
             .responseObject(OpenSubtitleItem.Deserializer)
@@ -30,7 +33,10 @@ class OpenSubtitlesService : OpenSubtitlesService {
             .get()
 
     /**
-     * Blocking download of a subtitle from the REST API.
+     * Blocking download of a subtitle from the REST API. Sometimes the filename
+     * specified in the [OpenSubtitleItem] does not exist within the zip file. When
+     * this happens, the largest file with the same extension within the zip file is
+     * downloaded.
      */
     override fun downloadSubtitle(
             context: Context
@@ -46,12 +52,13 @@ class OpenSubtitlesService : OpenSubtitlesService {
 
         val zipFile = ZipFile(tmpZipFile)
 
-        // Get the subtitle zip entry for the file name specified by the subtitle item.
-        val subtitleZipEntry: ZipEntry? = zipFile.getByName(subtitleItem.SubFileName)
-                ?: throw RuntimeException("Subtitle zip did not contain promised file.")
+        val zipEntry = zipFile.getByNameOrDefaultToLargest(
+                subtitleItem.SubFileName
+                , subtitleItem.SubFileName.getPathExtension()
+        ) ?: throw RuntimeException("Subtitle zip did not contain promised file.")
 
         // Copy file to destination.
-        val inputStream = zipFile.getInputStream(subtitleZipEntry)
+        val inputStream = zipFile.getInputStream(zipEntry)
 
         val outputStream: OutputStream = context
                 .contentResolver
