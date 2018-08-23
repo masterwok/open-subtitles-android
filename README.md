@@ -13,7 +13,7 @@ val url = OpenSubtitlesUrlBuilder()
         .subLanguageId(SubtitleLanguage.German)
         .build()
         
-// url = "https://rest.opensubtitles.org/search/query-Hackers+1995/sublanguageid-eng"
+// url = "https://rest.opensubtitles.org/search/query-Hackers+1995/sublanguageid-ger"
 ```
 
 For available query parameters, take a look at the [OpenSubtitlesUrlBuilder](https://github.com/masterwok/open-subtitles-android/blob/master/opensubtitlesandroid/src/main/java/com/masterwok/opensubtitlesandroid/OpenSubtitlesUrlBuilder.kt) class.
