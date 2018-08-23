@@ -1,999 +1,975 @@
 package com.masterwok.opensubtitlesandroid
 
-import com.masterwok.opensubtitlesandroid.annotations.DisplayName
-import com.masterwok.opensubtitlesandroid.extensions.getValue
-import kotlin.reflect.KProperty1
-import kotlin.reflect.KVisibility
-import kotlin.reflect.full.memberProperties
-
 
 /**
- * Open Subtitles language codes represented as ISO639-2.
+ * Open Subtitles language codes represented as ISO639-2. If a new entry is added,
+ * be sure to add it as a constant and to the mapping.
+ *
  * See: https://www.opensubtitles.org/addons/export_languages.php
  */
-@Suppress("unused")
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class SubtitleLanguage private constructor() {
-
-    data class Entry constructor(
-            val name: String
-            , val subLanguageId: String
-    ) {
-        override fun toString(): String = name
-    }
 
     companion object {
 
-        // I'm not a fan of reflection, but doing this makes the list of
-        //Languages easier to maintain.
-        private val supportedLanguagesLazy: List<Entry> by lazy {
-            this::class
-                    .memberProperties
-                    .filter { it.visibility == KVisibility.PUBLIC && it.isConst }
-                    .sortedBy { it.name }
-                    .map { toLanguage(it) }
-        }
-
-        private fun toLanguage(
-                it: KProperty1<out SubtitleLanguage.Companion, Any?>
-        ): Entry = Entry(
-                (it.annotations.first() as DisplayName).name
-                , it.getValue<String>(SubtitleLanguage.Companion)!!
-        )
-
-        /**
-         * TODO: DON'T USE REFLECTION TO DO THIS. IT'S TOO SLOW.
-         * Get a list of names of supportedLanguages. The first call to this
-         * method is going to be slow (~1200ms).
-         */
-        @JvmStatic
-        val supportedLanguages: List<Entry>
-            get() = supportedLanguagesLazy
-
-        @DisplayName("Afar, afar")
         const val Afarafar = "aar"
-        @DisplayName("Afrihili")
         const val Afrihili = "afh"
-        @DisplayName("Afrikaans")
         const val Afrikaans = "afr"
-        @DisplayName("Afro-Asiatic (Other)")
         const val AfrotoAsiatic = "afa"
-        @DisplayName("Ainu")
         const val Ainu = "ain"
-        @DisplayName("Akan")
         const val Akan = "aka"
-        @DisplayName("Akkadian")
         const val Akkadian = "akk"
-        @DisplayName("Albanian")
         const val Albanian = "alb"
-        @DisplayName("Aleut")
         const val Aleut = "ale"
-        @DisplayName("Algonquian languages")
         const val AlgonquianLanguages = "alg"
-        @DisplayName("Altaic (Other)")
         const val Altaic = "tut"
-        @DisplayName("Amharic")
         const val Amharic = "amh"
-        @DisplayName("Apache languages")
         const val ApacheLanguages = "apa"
-        @DisplayName("Arabic")
         const val Arabic = "ara"
-        @DisplayName("Aragonese")
         const val Aragonese = "arg"
-        @DisplayName("Aramaic")
         const val Aramaic = "arc"
-        @DisplayName("Arapaho")
         const val Arapaho = "arp"
-        @DisplayName("Araucanian")
         const val Araucanian = "arn"
-        @DisplayName("Arawak")
         const val Arawak = "arw"
-        @DisplayName("Armenian")
         const val Armenian = "arm"
-        @DisplayName("Aromanian")
         const val Aromanian = "rup"
-        @DisplayName("Artificial (Other)")
         const val Artificial = "art"
-        @DisplayName("Assamese")
         const val Assamese = "asm"
-        @DisplayName("Asturian")
         const val Asturian = "ast"
-        @DisplayName("Athapascan languages")
         const val AthapascanLanguages = "ath"
-        @DisplayName("Australian languages")
         const val AustralianLanguages = "aus"
-        @DisplayName("Austronesian (Other)")
         const val Austronesian = "map"
-        @DisplayName("Avaric")
         const val Avaric = "ava"
-        @DisplayName("Avestan")
         const val Avestan = "ave"
-        @DisplayName("Awadhi")
         const val Awadhi = "awa"
-        @DisplayName("Aymara")
         const val Aymara = "aym"
-        @DisplayName("Azerbaijani")
         const val Azerbaijani = "aze"
-        @DisplayName("Balinese")
         const val Balinese = "ban"
-        @DisplayName("Baltic (Other)")
         const val Baltic = "bat"
-        @DisplayName("Baluchi")
         const val Baluchi = "bal"
-        @DisplayName("Bambara")
         const val Bambara = "bam"
-        @DisplayName("Bamileke languages")
         const val BamilekeLanguages = "bai"
-        @DisplayName("Banda")
         const val Banda = "bad"
-        @DisplayName("Bantu (Other)")
         const val Bantu = "bnt"
-        @DisplayName("Basa")
         const val Basa = "bas"
-        @DisplayName("Bashkir")
         const val Bashkir = "bak"
-        @DisplayName("Basque")
         const val Basque = "baq"
-        @DisplayName("Batak (Indonesia)")
         const val BatakIndonesia = "btk"
-        @DisplayName("Beja")
         const val Beja = "bej"
-        @DisplayName("Belarusian")
         const val Belarusian = "bel"
-        @DisplayName("Bemba")
         const val Bemba = "bem"
-        @DisplayName("Bengali")
         const val Bengali = "ben"
-        @DisplayName("Berber (Other)")
         const val Berber = "ber"
-        @DisplayName("Bhojpuri")
         const val Bhojpuri = "bho"
-        @DisplayName("Bihari")
         const val Bihari = "bih"
-        @DisplayName("Bikol")
         const val Bikol = "bik"
-        @DisplayName("Bini")
         const val Bini = "bin"
-        @DisplayName("Bislama")
         const val Bislama = "bis"
-        @DisplayName("Blin")
         const val Blin = "byn"
-        @DisplayName("Bosnian")
         const val Bosnian = "bos"
-        @DisplayName("Braj")
         const val Braj = "bra"
-        @DisplayName("Breton")
         const val Breton = "bre"
-        @DisplayName("Buginese")
         const val Buginese = "bug"
-        @DisplayName("Bulgarian")
         const val Bulgarian = "bul"
-        @DisplayName("Buriat")
         const val Buriat = "bua"
-        @DisplayName("Burmese")
         const val Burmese = "bur"
-        @DisplayName("Caddo")
         const val Caddo = "cad"
-        @DisplayName("Carib")
         const val Carib = "car"
-        @DisplayName("Catalan")
         const val Catalan = "cat"
-        @DisplayName("Caucasian (Other)")
         const val Caucasian = "cau"
-        @DisplayName("Cebuano")
         const val Cebuano = "ceb"
-        @DisplayName("Celtic (Other)")
         const val Celtic = "cel"
-        @DisplayName("Central American Indian (Other)")
         const val CentralAmericanIndian = "cai"
-        @DisplayName("Chagatai")
         const val Chagatai = "chg"
-        @DisplayName("Chamic languages")
         const val ChamicLanguages = "cmc"
-        @DisplayName("Chamorro")
         const val Chamorro = "cha"
-        @DisplayName("Chechen")
         const val Chechen = "che"
-        @DisplayName("Cherokee")
         const val Cherokee = "chr"
-        @DisplayName("Cheyenne")
         const val Cheyenne = "chy"
-        @DisplayName("Chibcha")
         const val Chibcha = "chb"
-        @DisplayName("Chichewa")
         const val Chichewa = "nya"
-        @DisplayName("Chinese (simplified)")
         const val ChineseSimplified = "chi"
-        @DisplayName("Chinese (traditional)")
         const val ChineseTraditional = "zht"
-        @DisplayName("Chinese bilingual")
         const val ChineseBilingual = "zhe"
-        @DisplayName("Chinook jargon")
         const val ChinookJargon = "chn"
-        @DisplayName("Chipewyan")
         const val Chipewyan = "chp"
-        @DisplayName("Choctaw")
         const val Choctaw = "cho"
-        @DisplayName("Church Slavic")
         const val ChurchSlavic = "chu"
-        @DisplayName("Chuukese")
         const val Chuukese = "chk"
-        @DisplayName("Chuvash")
         const val Chuvash = "chv"
-        @DisplayName("Classical Newari")
         const val ClassicalNewari = "nwc"
-        @DisplayName("Coptic")
         const val Coptic = "cop"
-        @DisplayName("Cornish")
         const val Cornish = "cor"
-        @DisplayName("Corsican")
         const val Corsican = "cos"
-        @DisplayName("Cree")
         const val Cree = "cre"
-        @DisplayName("Creek")
         const val Creek = "mus"
-        @DisplayName("Creoles and pidgins (Other)")
         const val CreolesPidgins = "crp"
-        @DisplayName("Creoles and pidgins, English based (Other)")
         const val CreolesPidginsEnglishBased = "cpe"
-        @DisplayName("Creoles and pidgins, French-based (Other)")
         const val CreolesPidginsFrenchBased = "cpf"
-        @DisplayName("Creoles and pidgins, Portuguese-based (Other)")
         const val CreolesPidginsPortuguesetoBased = "cpp"
-        @DisplayName("Crimean Tatar")
         const val CrimeanTatar = "crh"
-        @DisplayName("Croatian")
         const val Croatian = "hrv"
-        @DisplayName("Cushitic (Other)' couchitiques, autres langues")
         const val CushiticCouchitiquesautresLanguages = "cus"
-        @DisplayName("Czech")
         const val Czech = "cze"
-        @DisplayName("Dakota")
         const val Dakota = "dak"
-        @DisplayName("Danish")
         const val Danish = "dan"
-        @DisplayName("Dargwa")
         const val Dargwa = "dar"
-        @DisplayName("Dayak")
         const val Dayak = "day"
-        @DisplayName("Delaware")
         const val Delaware = "del"
-        @DisplayName("Dinka")
         const val Dinka = "din"
-        @DisplayName("Divehi")
         const val Divehi = "div"
-        @DisplayName("Dogri")
         const val Dogri = "doi"
-        @DisplayName("Dogrib")
         const val Dogrib = "dgr"
-        @DisplayName("Dravidian (Other)")
         const val Dravidian = "dra"
-        @DisplayName("Duala")
         const val Duala = "dua"
-        @DisplayName("Dutch")
         const val Dutch = "dut"
-        @DisplayName("Dutch, Middle (ca.1050-1350)")
         const val DutchMiddleCa1050to1350 = "dum"
-        @DisplayName("Dyula")
         const val Dyula = "dyu"
-        @DisplayName("Dzongkha")
         const val Dzongkha = "dzo"
-        @DisplayName("Efik")
         const val Efik = "efi"
-        @DisplayName("Egyptian (Ancient)")
         const val EgyptianAncient = "egy"
-        @DisplayName("Ekajuk")
         const val Ekajuk = "eka"
-        @DisplayName("Elamite")
         const val Elamite = "elx"
-        @DisplayName("English")
         const val English = "eng"
-        @DisplayName("English, Middle (1100-1500)")
         const val EnglishMiddle1100to1500 = "enm"
-        @DisplayName("English, Old (ca.450-1100)")
         const val EnglishOldCa450to1100 = "ang"
-        @DisplayName("Erzya")
         const val Erzya = "myv"
-        @DisplayName("Esperanto")
         const val Esperanto = "epo"
-        @DisplayName("Estonian")
         const val Estonian = "est"
-        @DisplayName("Ewe")
         const val Ewe = "ewe"
-        @DisplayName("Ewondo")
         const val Ewondo = "ewo"
-        @DisplayName("Extremaduran")
         const val Extremaduran = "ext"
-        @DisplayName("Fang")
         const val Fang = "fan"
-        @DisplayName("Fanti")
         const val Fanti = "fat"
-        @DisplayName("Faroese")
         const val Faroese = "fao"
-        @DisplayName("Fijian")
         const val Fijian = "fij"
-        @DisplayName("Filipino")
         const val Filipino = "fil"
-        @DisplayName("Finnish")
         const val Finnish = "fin"
-        @DisplayName("Finno-Ugrian (Other)")
         const val FinnotoUgrian = "fiu"
-        @DisplayName("Fon")
         const val Fon = "fon"
-        @DisplayName("French")
         const val French = "fre"
-        @DisplayName("French, Middle (ca.1400-1600)")
         const val FrenchMiddleCa1400to1600 = "frm"
-        @DisplayName("French, Old (842-ca.1400)")
         const val FrenchOld842toCa1400 = "fro"
-        @DisplayName("Frisian")
         const val Frisian = "fry"
-        @DisplayName("Friulian")
         const val Friulian = "fur"
-        @DisplayName("Fulah")
         const val Fulah = "ful"
-        @DisplayName("Ga")
         const val Ga = "gaa"
-        @DisplayName("Gaelic")
         const val Gaelic = "gla"
-        @DisplayName("Galician")
         const val Galician = "glg"
-        @DisplayName("Ganda")
         const val Ganda = "lug"
-        @DisplayName("Gayo")
         const val Gayo = "gay"
-        @DisplayName("Gbaya")
         const val Gbaya = "gba"
-        @DisplayName("Geez")
         const val Geez = "gez"
-        @DisplayName("Georgian")
         const val Georgian = "geo"
-        @DisplayName("German")
         const val German = "ger"
-        @DisplayName("German, Middle High (ca.1050-1500)")
         const val GermanMiddleHighCa1050to1500 = "gmh"
-        @DisplayName("German, Old High (ca.750-1050)")
         const val GermanOldHighCa750to1050 = "goh"
-        @DisplayName("Germanic (Other)")
         const val Germanic = "gem"
-        @DisplayName("Gilbertese")
         const val Gilbertese = "gil"
-        @DisplayName("Gondi")
         const val Gondi = "gon"
-        @DisplayName("Gorontalo")
         const val Gorontalo = "gor"
-        @DisplayName("Gothic")
         const val Gothic = "got"
-        @DisplayName("Grebo")
         const val Grebo = "grb"
-        @DisplayName("Greek")
         const val Greek = "ell"
-        @DisplayName("Greek, Ancient (to 1453)")
         const val GreekAncientto1453 = "grc"
-        @DisplayName("Guarani")
         const val Guarani = "grn"
-        @DisplayName("Gujarati")
         const val Gujarati = "guj"
-        @DisplayName("Gwich´in")
         const val Gwichin = "gwi"
-        @DisplayName("Haida")
         const val Haida = "hai"
-        @DisplayName("Haitian")
         const val Haitian = "hat"
-        @DisplayName("Hausa")
         const val Hausa = "hau"
-        @DisplayName("Hawaiian")
         const val Hawaiian = "haw"
-        @DisplayName("Hebrew")
         const val Hebrew = "heb"
-        @DisplayName("Herero")
         const val Herero = "her"
-        @DisplayName("Hiligaynon")
         const val Hiligaynon = "hil"
-        @DisplayName("Himachali")
         const val Himachali = "him"
-        @DisplayName("Hindi")
         const val Hindi = "hin"
-        @DisplayName("Hiri Motu")
         const val HiriMotu = "hmo"
-        @DisplayName("Hittite")
         const val Hittite = "hit"
-        @DisplayName("Hmong")
         const val Hmong = "hmn"
-        @DisplayName("Hungarian")
         const val Hungarian = "hun"
-        @DisplayName("Hupa")
         const val Hupa = "hup"
-        @DisplayName("Iban")
         const val Iban = "iba"
-        @DisplayName("Icelandic")
         const val Icelandic = "ice"
-        @DisplayName("Ido")
         const val Ido = "ido"
-        @DisplayName("Igbo")
         const val Igbo = "ibo"
-        @DisplayName("Ijo")
         const val Ijo = "ijo"
-        @DisplayName("Iloko")
         const val Iloko = "ilo"
-        @DisplayName("Inari Sami")
         const val InariSami = "smn"
-        @DisplayName("Indic (Other)")
         const val Indic = "inc"
-        @DisplayName("Indo-European (Other)")
         const val IndotoEuropean = "ine"
-        @DisplayName("Indonesian")
         const val Indonesian = "ind"
-        @DisplayName("Ingush")
         const val Ingush = "inh"
-        @DisplayName("Interlingua (International Auxiliary Entry Association)")
         const val InterlinguaInternationalAuxiliaryLanguageAssociation = "ina"
-        @DisplayName("Interlingue")
         const val Interlingue = "ile"
-        @DisplayName("Inuktitut")
         const val Inuktitut = "iku"
-        @DisplayName("Inupiaq")
         const val Inupiaq = "ipk"
-        @DisplayName("Iranian (Other)")
         const val Iranian = "ira"
-        @DisplayName("Irish")
         const val Irish = "gle"
-        @DisplayName("Irish, Middle (900-1200)")
         const val IrishMiddle900to1200 = "mga"
-        @DisplayName("Irish, Old (to 900)")
         const val IrishOldto900 = "sga"
-        @DisplayName("Iroquoian languages")
         const val IroquoianLanguages = "iro"
-        @DisplayName("Italian")
         const val Italian = "ita"
-        @DisplayName("Japanese")
         const val Japanese = "jpn"
-        @DisplayName("Javanese")
         const val Javanese = "jav"
-        @DisplayName("Judeo-Arabic")
         const val JudeotoArabic = "jrb"
-        @DisplayName("Judeo-Persian")
         const val JudeotoPersian = "jpr"
-        @DisplayName("Kabardian")
         const val Kabardian = "kbd"
-        @DisplayName("Kabyle")
         const val Kabyle = "kab"
-        @DisplayName("Kachin")
         const val Kachin = "kac"
-        @DisplayName("Kalaallisut")
         const val Kalaallisut = "kal"
-        @DisplayName("Kalmyk")
         const val Kalmyk = "xal"
-        @DisplayName("Kamba")
         const val Kamba = "kam"
-        @DisplayName("Kannada")
         const val Kannada = "kan"
-        @DisplayName("Kanuri")
         const val Kanuri = "kau"
-        @DisplayName("Kara-Kalpak")
         const val KaratoKalpak = "kaa"
-        @DisplayName("Karachay-Balkar")
         const val KarachaytoBalkar = "krc"
-        @DisplayName("Karen")
         const val Karen = "kar"
-        @DisplayName("Kashmiri")
         const val Kashmiri = "kas"
-        @DisplayName("Kashubian")
         const val Kashubian = "csb"
-        @DisplayName("Kawi")
         const val Kawi = "kaw"
-        @DisplayName("Kazakh")
         const val Kazakh = "kaz"
-        @DisplayName("Khasi")
         const val Khasi = "kha"
-        @DisplayName("Khmer")
         const val Khmer = "khm"
-        @DisplayName("Khoisan (Other)")
         const val Khoisan = "khi"
-        @DisplayName("Khotanese")
         const val Khotanese = "kho"
-        @DisplayName("Kikuyu")
         const val Kikuyu = "kik"
-        @DisplayName("Kimbundu")
         const val Kimbundu = "kmb"
-        @DisplayName("Kinyarwanda")
         const val Kinyarwanda = "kin"
-        @DisplayName("Kirghiz")
         const val Kirghiz = "kir"
-        @DisplayName("Klingon")
         const val Klingon = "tlh"
-        @DisplayName("Komi")
         const val Komi = "kom"
-        @DisplayName("Kongo")
         const val Kongo = "kon"
-        @DisplayName("Konkani")
         const val Konkani = "kok"
-        @DisplayName("Korean")
         const val Korean = "kor"
-        @DisplayName("Kosraean")
         const val Kosraean = "kos"
-        @DisplayName("Kpelle")
         const val Kpelle = "kpe"
-        @DisplayName("Kru")
         const val Kru = "kro"
-        @DisplayName("Kuanyama")
         const val Kuanyama = "kua"
-        @DisplayName("Kumyk")
         const val Kumyk = "kum"
-        @DisplayName("Kurdish")
         const val Kurdish = "kur"
-        @DisplayName("Kurukh")
         const val Kurukh = "kru"
-        @DisplayName("Kutenai")
         const val Kutenai = "kut"
-        @DisplayName("Ladino")
         const val Ladino = "lad"
-        @DisplayName("Lahnda")
         const val Lahnda = "lah"
-        @DisplayName("Lamba")
         const val Lamba = "lam"
-        @DisplayName("Lao")
         const val Lao = "lao"
-        @DisplayName("Latin")
         const val Latin = "lat"
-        @DisplayName("Latvian")
         const val Latvian = "lav"
-        @DisplayName("Lezghian")
         const val Lezghian = "lez"
-        @DisplayName("Limburgan")
         const val Limburgan = "lim"
-        @DisplayName("Lingala")
         const val Lingala = "lin"
-        @DisplayName("Lithuanian")
         const val Lithuanian = "lit"
-        @DisplayName("Low German")
         const val LowGerman = "nds"
-        @DisplayName("Lozi")
         const val Lozi = "loz"
-        @DisplayName("Luba-Katanga")
         const val LubatoKatanga = "lub"
-        @DisplayName("Luba-Lulua")
         const val LubatoLulua = "lua"
-        @DisplayName("Luiseno")
         const val Luiseno = "lui"
-        @DisplayName("Lule Sami")
         const val LuleSami = "smj"
-        @DisplayName("Lunda")
         const val Lunda = "lun"
-        @DisplayName("Luo (Kenya and Tanzania)")
         const val LuoKenyaAndTanzania = "luo"
-        @DisplayName("lushai")
         const val lushai = "lus"
-        @DisplayName("Luxembourgish")
         const val Luxembourgish = "ltz"
-        @DisplayName("Macedonian")
         const val Macedonian = "mac"
-        @DisplayName("Madurese")
         const val Madurese = "mad"
-        @DisplayName("Magahi")
         const val Magahi = "mag"
-        @DisplayName("Maithili")
         const val Maithili = "mai"
-        @DisplayName("Makasar")
         const val Makasar = "mak"
-        @DisplayName("Malagasy")
         const val Malagasy = "mlg"
-        @DisplayName("Malay")
         const val Malay = "may"
-        @DisplayName("Malayalam")
         const val Malayalam = "mal"
-        @DisplayName("Maltese")
         const val Maltese = "mlt"
-        @DisplayName("Manchu")
         const val Manchu = "mnc"
-        @DisplayName("Mandar")
         const val Mandar = "mdr"
-        @DisplayName("Mandingo")
         const val Mandingo = "man"
-        @DisplayName("Manipuri")
         const val Manipuri = "mni"
-        @DisplayName("Manobo languages")
         const val ManoboLanguages = "mno"
-        @DisplayName("Manx")
         const val Manx = "glv"
-        @DisplayName("Maori")
         const val Maori = "mao"
-        @DisplayName("Marathi")
         const val Marathi = "mar"
-        @DisplayName("Mari")
         const val Mari = "chm"
-        @DisplayName("Marshallese")
         const val Marshallese = "mah"
-        @DisplayName("Marwari")
         const val Marwari = "mwr"
-        @DisplayName("Masai")
         const val Masai = "mas"
-        @DisplayName("Mayan languages")
         const val MayanLanguages = "myn"
-        @DisplayName("Mende")
         const val Mende = "men"
-        @DisplayName("Mi'kmaq")
         const val Mikmaq = "mic"
-        @DisplayName("Minangkabau")
         const val Minangkabau = "min"
-        @DisplayName("Mirandese")
         const val Mirandese = "mwl"
-        @DisplayName("Miscellaneous languages")
         const val MiscellaneousLanguages = "mis"
-        @DisplayName("Mohawk")
         const val Mohawk = "moh"
-        @DisplayName("Moksha")
         const val Moksha = "mdf"
-        @DisplayName("Moldavian")
         const val Moldavian = "mol"
-        @DisplayName("Mon-Khmer (Other)")
         const val MontoKhmer = "mkh"
-        @DisplayName("Mongo")
         const val Mongo = "lol"
-        @DisplayName("Mongolian")
         const val Mongolian = "mon"
-        @DisplayName("Montenegrin")
         const val Montenegrin = "mne"
-        @DisplayName("Mossi")
         const val Mossi = "mos"
-        @DisplayName("Multiple languages")
         const val MultipleLanguages = "mul"
-        @DisplayName("Munda languages")
         const val MundaLanguages = "mun"
-        @DisplayName("Nahuatl")
         const val Nahuatl = "nah"
-        @DisplayName("Nauru")
         const val Nauru = "nau"
-        @DisplayName("Navajo")
         const val Navajo = "nav"
-        @DisplayName("Ndebele, North")
         const val NdebeleNorth = "nde"
-        @DisplayName("Ndebele, South")
         const val NdebeleSouth = "nbl"
-        @DisplayName("Ndonga")
         const val Ndonga = "ndo"
-        @DisplayName("Neapolitan")
         const val Neapolitan = "nap"
-        @DisplayName("Nepal Bhasa")
         const val NepalBhasa = "new"
-        @DisplayName("Nepali")
         const val Nepali = "nep"
-        @DisplayName("Nias")
         const val Nias = "nia"
-        @DisplayName("Niger-Kordofanian (Other)")
         const val NigertoKordofanian = "nic"
-        @DisplayName("Nilo-Saharan (Other)")
         const val NilotoSaharan = "ssa"
-        @DisplayName("Niuean")
         const val Niuean = "niu"
-        @DisplayName("Nogai")
         const val Nogai = "nog"
-        @DisplayName("Norse, Old")
         const val NorseOld = "non"
-        @DisplayName("North American Indian")
         const val NorthAmericanIndian = "nai"
-        @DisplayName("Northern Sami")
         const val NorthernSami = "sme"
-        @DisplayName("Northern Sotho")
         const val NorthernSotho = "nso"
-        @DisplayName("Norwegian")
         const val Norwegian = "nor"
-        @DisplayName("Norwegian Bokmal")
         const val NorwegianBokmal = "nob"
-        @DisplayName("Norwegian Nynorsk")
         const val NorwegianNynorsk = "nno"
-        @DisplayName("Nubian languages")
         const val NubianLanguages = "nub"
-        @DisplayName("Nyamwezi")
         const val Nyamwezi = "nym"
-        @DisplayName("Nyankole")
         const val Nyankole = "nyn"
-        @DisplayName("Nyoro")
         const val Nyoro = "nyo"
-        @DisplayName("Nzima")
         const val Nzima = "nzi"
-        @DisplayName("Occitan")
         const val Occitan = "oci"
-        @DisplayName("Ojibwa")
         const val Ojibwa = "oji"
-        @DisplayName("Oriya")
         const val Oriya = "ori"
-        @DisplayName("Oromo")
         const val Oromo = "orm"
-        @DisplayName("Osage")
         const val Osage = "osa"
-        @DisplayName("Ossetian")
         const val Ossetian = "oss"
-        @DisplayName("Otomian languages")
         const val OtomianLanguages = "oto"
-        @DisplayName("Pahlavi")
         const val Pahlavi = "pal"
-        @DisplayName("Palauan")
         const val Palauan = "pau"
-        @DisplayName("Pali")
         const val Pali = "pli"
-        @DisplayName("Pampanga")
         const val Pampanga = "pam"
-        @DisplayName("Pangasinan")
         const val Pangasinan = "pag"
-        @DisplayName("Panjabi")
         const val Panjabi = "pan"
-        @DisplayName("Papiamento")
         const val Papiamento = "pap"
-        @DisplayName("Papuan (Other)")
         const val Papuan = "paa"
-        @DisplayName("Persian")
         const val Persian = "per"
-        @DisplayName("Persian, Old (ca.600-400 B.C.)")
         const val PersianOldCa600to400Bc = "peo"
-        @DisplayName("Philippine (Other)")
         const val Philippine = "phi"
-        @DisplayName("Phoenician")
         const val Phoenician = "phn"
-        @DisplayName("Pohnpeian")
         const val Pohnpeian = "pon"
-        @DisplayName("Polish")
         const val Polish = "pol"
-        @DisplayName("Portuguese")
         const val Portuguese = "por"
-        @DisplayName("Portuguese (BR)")
         const val PortugueseBr = "pob"
-        @DisplayName("Portuguese (MZ)")
         const val PortugueseMz = "pom"
-        @DisplayName("Prakrit languages")
         const val PrakritLanguages = "pra"
-        @DisplayName("Provençal, Old (to 1500)")
         const val ProvencalOldto1500 = "pro"
-        @DisplayName("Pushto")
         const val Pushto = "pus"
-        @DisplayName("Quechua")
         const val Quechua = "que"
-        @DisplayName("Raeto-Romance")
         const val RaetotoRomance = "roh"
-        @DisplayName("Rajasthani")
         const val Rajasthani = "raj"
-        @DisplayName("Rapanui")
         const val Rapanui = "rap"
-        @DisplayName("Rarotongan")
         const val Rarotongan = "rar"
-        @DisplayName("Romance (Other)")
         const val Romance = "roa"
-        @DisplayName("Romanian")
         const val Romanian = "rum"
-        @DisplayName("Romany")
         const val Romany = "rom"
-        @DisplayName("Rundi")
         const val Rundi = "run"
-        @DisplayName("Russian")
         const val Russian = "rus"
-        @DisplayName("Salishan languages")
         const val SalishanLanguages = "sal"
-        @DisplayName("Samaritan Aramaic")
         const val SamaritanAramaic = "sam"
-        @DisplayName("Sami languages (Other)")
         const val SamiLanguages = "smi"
-        @DisplayName("Samoan")
         const val Samoan = "smo"
-        @DisplayName("Sandawe")
         const val Sandawe = "sad"
-        @DisplayName("Sango")
         const val Sango = "sag"
-        @DisplayName("Sanskrit")
         const val Sanskrit = "san"
-        @DisplayName("Santali")
         const val Santali = "sat"
-        @DisplayName("Sardinian")
         const val Sardinian = "srd"
-        @DisplayName("Sasak")
         const val Sasak = "sas"
-        @DisplayName("Scots")
         const val Scots = "sco"
-        @DisplayName("Selkup")
         const val Selkup = "sel"
-        @DisplayName("Semitic (Other)")
         const val Semitic = "sem"
-        @DisplayName("Serbian")
         const val Serbian = "scc"
-        @DisplayName("Serer")
         const val Serer = "srr"
-        @DisplayName("Shan")
         const val Shan = "shn"
-        @DisplayName("Shona")
         const val Shona = "sna"
-        @DisplayName("Sichuan Yi")
         const val SichuanYi = "iii"
-        @DisplayName("Sicilian")
         const val Sicilian = "scn"
-        @DisplayName("Sidamo")
         const val Sidamo = "sid"
-        @DisplayName("Sign Languages")
         const val SignLanguages = "sgn"
-        @DisplayName("Siksika")
         const val Siksika = "bla"
-        @DisplayName("Sindhi")
         const val Sindhi = "snd"
-        @DisplayName("Sinhalese")
         const val Sinhalese = "sin"
-        @DisplayName("Sino-Tibetan (Other)")
         const val SinotoTibetan = "sit"
-        @DisplayName("Siouan languages")
         const val SiouanLanguages = "sio"
-        @DisplayName("Skolt Sami")
         const val SkoltSami = "sms"
-        @DisplayName("Slave (Athapascan)")
         const val SlaveAthapascan = "den"
-        @DisplayName("Slavic (Other)")
         const val Slavic = "sla"
-        @DisplayName("Slovak")
         const val Slovak = "slo"
-        @DisplayName("Slovenian")
         const val Slovenian = "slv"
-        @DisplayName("Sogdian")
         const val Sogdian = "sog"
-        @DisplayName("Somali")
         const val Somali = "som"
-        @DisplayName("Songhai")
         const val Songhai = "son"
-        @DisplayName("Soninke")
         const val Soninke = "snk"
-        @DisplayName("Sorbian languages")
         const val SorbianLanguages = "wen"
-        @DisplayName("Sotho, Southern")
         const val SothoSouthern = "sot"
-        @DisplayName("South American Indian (Other)")
         const val SouthAmericanIndian = "sai"
-        @DisplayName("Southern Altai")
         const val SouthernAltai = "alt"
-        @DisplayName("Southern Sami")
         const val SouthernSami = "sma"
-        @DisplayName("Spanish")
         const val Spanish = "spa"
-        @DisplayName("Sukuma")
         const val Sukuma = "suk"
-        @DisplayName("Sumerian")
         const val Sumerian = "sux"
-        @DisplayName("Sundanese")
         const val Sundanese = "sun"
-        @DisplayName("Susu")
         const val Susu = "sus"
-        @DisplayName("Swahili")
         const val Swahili = "swa"
-        @DisplayName("Swati")
         const val Swati = "ssw"
-        @DisplayName("Swedish")
         const val Swedish = "swe"
-        @DisplayName("Syriac")
         const val Syriac = "syr"
-        @DisplayName("Tagalog")
         const val Tagalog = "tgl"
-        @DisplayName("Tahitian")
         const val Tahitian = "tah"
-        @DisplayName("Tai (Other)")
         const val Tai = "tai"
-        @DisplayName("Tajik")
         const val Tajik = "tgk"
-        @DisplayName("Tamashek")
         const val Tamashek = "tmh"
-        @DisplayName("Tamil")
         const val Tamil = "tam"
-        @DisplayName("Tatar")
         const val Tatar = "tat"
-        @DisplayName("Telugu")
         const val Telugu = "tel"
-        @DisplayName("Tereno")
         const val Tereno = "ter"
-        @DisplayName("Tetum")
         const val Tetum = "tet"
-        @DisplayName("Thai")
         const val Thai = "tha"
-        @DisplayName("Tibetan")
         const val Tibetan = "tib"
-        @DisplayName("Tigre")
         const val Tigre = "tig"
-        @DisplayName("Tigrinya")
         const val Tigrinya = "tir"
-        @DisplayName("Timne")
         const val Timne = "tem"
-        @DisplayName("Tiv")
         const val Tiv = "tiv"
-        @DisplayName("Tlingit")
         const val Tlingit = "tli"
-        @DisplayName("Tok Pisin")
         const val TokPisin = "tpi"
-        @DisplayName("Tokelau")
         const val Tokelau = "tkl"
-        @DisplayName("Tonga (Nyasa)")
         const val TongaNyasa = "tog"
-        @DisplayName("Tonga (Tonga Islands)")
         const val TongaTongaIslands = "ton"
-        @DisplayName("Tsimshian")
         const val Tsimshian = "tsi"
-        @DisplayName("Tsonga")
         const val Tsonga = "tso"
-        @DisplayName("Tswana")
         const val Tswana = "tsn"
-        @DisplayName("Tumbuka")
         const val Tumbuka = "tum"
-        @DisplayName("Tupi languages")
         const val TupiLanguages = "tup"
-        @DisplayName("Turkish")
         const val Turkish = "tur"
-        @DisplayName("Turkish, Ottoman (1500-1928)")
         const val TurkishOttoman1500to1928 = "ota"
-        @DisplayName("Turkmen")
         const val Turkmen = "tuk"
-        @DisplayName("Tuvalu")
         const val Tuvalu = "tvl"
-        @DisplayName("Tuvinian")
         const val Tuvinian = "tyv"
-        @DisplayName("Twi")
         const val Twi = "twi"
-        @DisplayName("Udmurt")
         const val Udmurt = "udm"
-        @DisplayName("Ugaritic")
         const val Ugaritic = "uga"
-        @DisplayName("Uighur")
         const val Uighur = "uig"
-        @DisplayName("Ukrainian")
         const val Ukrainian = "ukr"
-        @DisplayName("Umbundu")
         const val Umbundu = "umb"
-        @DisplayName("Undetermined")
         const val Undetermined = "und"
-        @DisplayName("Urdu")
         const val Urdu = "urd"
-        @DisplayName("Uzbek")
         const val Uzbek = "uzb"
-        @DisplayName("Vai")
         const val Vai = "vai"
-        @DisplayName("Venda")
         const val Venda = "ven"
-        @DisplayName("Vietnamese")
         const val Vietnamese = "vie"
-        @DisplayName("Volapük")
         const val Volapuk = "vol"
-        @DisplayName("Votic")
         const val Votic = "vot"
-        @DisplayName("Wakashan languages")
         const val WakashanLanguages = "wak"
-        @DisplayName("Walamo")
         const val Walamo = "wal"
-        @DisplayName("Walloon")
         const val Walloon = "wln"
-        @DisplayName("Waray")
         const val Waray = "war"
-        @DisplayName("Washo")
         const val Washo = "was"
-        @DisplayName("Welsh")
         const val Welsh = "wel"
-        @DisplayName("Wolof")
         const val Wolof = "wol"
-        @DisplayName("Xhosa")
         const val Xhosa = "xho"
-        @DisplayName("Yakut")
         const val Yakut = "sah"
-        @DisplayName("Yao")
         const val Yao = "yao"
-        @DisplayName("Yapese")
         const val Yapese = "yap"
-        @DisplayName("Yiddish")
         const val Yiddish = "yid"
-        @DisplayName("Yoruba")
         const val Yoruba = "yor"
-        @DisplayName("Yupik languages")
         const val YupikLanguages = "ypk"
-        @DisplayName("Zande")
         const val Zande = "znd"
-        @DisplayName("Zapotec")
         const val Zapotec = "zap"
-        @DisplayName("Zenaga")
         const val Zenaga = "zen"
-        @DisplayName("Zhuang")
         const val Zhuang = "zha"
-        @DisplayName("Zulu")
         const val Zulu = "zul"
-        @DisplayName("Zuni")
         const val Zuni = "zun"
 
+        private val languageMapping: HashMap<String, String> by lazy {
+            hashMapOf(
+                    "Afar, afar" to Afarafar
+                    , "Afrihili" to Afrihili
+                    , "Afrikaans" to Afrikaans
+                    , "Afro-Asiatic (Other)" to AfrotoAsiatic
+                    , "Ainu" to Ainu
+                    , "Akan" to Akan
+                    , "Akkadian" to Akkadian
+                    , "Albanian" to Albanian
+                    , "Aleut" to Aleut
+                    , "Algonquian languages" to AlgonquianLanguages
+                    , "Altaic (Other)" to Altaic
+                    , "Amharic" to Amharic
+                    , "Apache languages" to ApacheLanguages
+                    , "Arabic" to Arabic
+                    , "Aragonese" to Aragonese
+                    , "Aramaic" to Aramaic
+                    , "Arapaho" to Arapaho
+                    , "Araucanian" to Araucanian
+                    , "Arawak" to Arawak
+                    , "Armenian" to Armenian
+                    , "Aromanian" to Aromanian
+                    , "Artificial (Other)" to Artificial
+                    , "Assamese" to Assamese
+                    , "Asturian" to Asturian
+                    , "Athapascan languages" to AthapascanLanguages
+                    , "Australian languages" to AustralianLanguages
+                    , "Austronesian (Other)" to Austronesian
+                    , "Avaric" to Avaric
+                    , "Avestan" to Avestan
+                    , "Awadhi" to Awadhi
+                    , "Aymara" to Aymara
+                    , "Azerbaijani" to Azerbaijani
+                    , "Balinese" to Balinese
+                    , "Baltic (Other)" to Baltic
+                    , "Baluchi" to Baluchi
+                    , "Bambara" to Bambara
+                    , "Bamileke languages" to BamilekeLanguages
+                    , "Banda" to Banda
+                    , "Bantu (Other)" to Bantu
+                    , "Basa" to Basa
+                    , "Bashkir" to Bashkir
+                    , "Basque" to Basque
+                    , "Batak (Indonesia)" to BatakIndonesia
+                    , "Beja" to Beja
+                    , "Belarusian" to Belarusian
+                    , "Bemba" to Bemba
+                    , "Bengali" to Bengali
+                    , "Berber (Other)" to Berber
+                    , "Bhojpuri" to Bhojpuri
+                    , "Bihari" to Bihari
+                    , "Bikol" to Bikol
+                    , "Bini" to Bini
+                    , "Bislama" to Bislama
+                    , "Blin" to Blin
+                    , "Bosnian" to Bosnian
+                    , "Braj" to Braj
+                    , "Breton" to Breton
+                    , "Buginese" to Buginese
+                    , "Bulgarian" to Bulgarian
+                    , "Buriat" to Buriat
+                    , "Burmese" to Burmese
+                    , "Caddo" to Caddo
+                    , "Carib" to Carib
+                    , "Catalan" to Catalan
+                    , "Caucasian (Other)" to Caucasian
+                    , "Cebuano" to Cebuano
+                    , "Celtic (Other)" to Celtic
+                    , "Central American Indian (Other)" to CentralAmericanIndian
+                    , "Chagatai" to Chagatai
+                    , "Chamic languages" to ChamicLanguages
+                    , "Chamorro" to Chamorro
+                    , "Chechen" to Chechen
+                    , "Cherokee" to Cherokee
+                    , "Cheyenne" to Cheyenne
+                    , "Chibcha" to Chibcha
+                    , "Chichewa" to Chichewa
+                    , "Chinese (simplified)" to ChineseSimplified
+                    , "Chinese (traditional)" to ChineseTraditional
+                    , "Chinese bilingual" to ChineseBilingual
+                    , "Chinook jargon" to ChinookJargon
+                    , "Chipewyan" to Chipewyan
+                    , "Choctaw" to Choctaw
+                    , "Church Slavic" to ChurchSlavic
+                    , "Chuukese" to Chuukese
+                    , "Chuvash" to Chuvash
+                    , "Classical Newari" to ClassicalNewari
+                    , "Coptic" to Coptic
+                    , "Cornish" to Cornish
+                    , "Corsican" to Corsican
+                    , "Cree" to Cree
+                    , "Creek" to Creek
+                    , "Creoles and pidgins (Other)" to CreolesPidgins
+                    , "Creoles and pidgins, English based (Other)" to CreolesPidginsEnglishBased
+                    , "Creoles and pidgins, French-based (Other)" to CreolesPidginsFrenchBased
+                    , "Creoles and pidgins, Portuguese-based (Other)" to CreolesPidginsPortuguesetoBased
+                    , "Crimean Tatar" to CrimeanTatar
+                    , "Croatian" to Croatian
+                    , "Cushitic (Other)' couchitiques, autres langues" to CushiticCouchitiquesautresLanguages
+                    , "Czech" to Czech
+                    , "Dakota" to Dakota
+                    , "Danish" to Danish
+                    , "Dargwa" to Dargwa
+                    , "Dayak" to Dayak
+                    , "Delaware" to Delaware
+                    , "Dinka" to Dinka
+                    , "Divehi" to Divehi
+                    , "Dogri" to Dogri
+                    , "Dogrib" to Dogrib
+                    , "Dravidian (Other)" to Dravidian
+                    , "Duala" to Duala
+                    , "Dutch" to Dutch
+                    , "Dutch, Middle (ca.1050-1350)" to DutchMiddleCa1050to1350
+                    , "Dyula" to Dyula
+                    , "Dzongkha" to Dzongkha
+                    , "Efik" to Efik
+                    , "Egyptian (Ancient)" to EgyptianAncient
+                    , "Ekajuk" to Ekajuk
+                    , "Elamite" to Elamite
+                    , "English" to English
+                    , "English, Middle (1100-1500)" to EnglishMiddle1100to1500
+                    , "English, Old (ca.450-1100)" to EnglishOldCa450to1100
+                    , "Erzya" to Erzya
+                    , "Esperanto" to Esperanto
+                    , "Estonian" to Estonian
+                    , "Ewe" to Ewe
+                    , "Ewondo" to Ewondo
+                    , "Extremaduran" to Extremaduran
+                    , "Fang" to Fang
+                    , "Fanti" to Fanti
+                    , "Faroese" to Faroese
+                    , "Fijian" to Fijian
+                    , "Filipino" to Filipino
+                    , "Finnish" to Finnish
+                    , "Finno-Ugrian (Other)" to FinnotoUgrian
+                    , "Fon" to Fon
+                    , "French" to French
+                    , "French, Middle (ca.1400-1600)" to FrenchMiddleCa1400to1600
+                    , "French, Old (842-ca.1400)" to FrenchOld842toCa1400
+                    , "Frisian" to Frisian
+                    , "Friulian" to Friulian
+                    , "Fulah" to Fulah
+                    , "Ga" to Ga
+                    , "Gaelic" to Gaelic
+                    , "Galician" to Galician
+                    , "Ganda" to Ganda
+                    , "Gayo" to Gayo
+                    , "Gbaya" to Gbaya
+                    , "Geez" to Geez
+                    , "Georgian" to Georgian
+                    , "German" to German
+                    , "German, Middle High (ca.1050-1500)" to GermanMiddleHighCa1050to1500
+                    , "German, Old High (ca.750-1050)" to GermanOldHighCa750to1050
+                    , "Germanic (Other)" to Germanic
+                    , "Gilbertese" to Gilbertese
+                    , "Gondi" to Gondi
+                    , "Gorontalo" to Gorontalo
+                    , "Gothic" to Gothic
+                    , "Grebo" to Grebo
+                    , "Greek" to Greek
+                    , "Greek, Ancient (to 1453)" to GreekAncientto1453
+                    , "Guarani" to Guarani
+                    , "Gujarati" to Gujarati
+                    , "Gwich´in" to Gwichin
+                    , "Haida" to Haida
+                    , "Haitian" to Haitian
+                    , "Hausa" to Hausa
+                    , "Hawaiian" to Hawaiian
+                    , "Hebrew" to Hebrew
+                    , "Herero" to Herero
+                    , "Hiligaynon" to Hiligaynon
+                    , "Himachali" to Himachali
+                    , "Hindi" to Hindi
+                    , "Hiri Motu" to HiriMotu
+                    , "Hittite" to Hittite
+                    , "Hmong" to Hmong
+                    , "Hungarian" to Hungarian
+                    , "Hupa" to Hupa
+                    , "Iban" to Iban
+                    , "Icelandic" to Icelandic
+                    , "Ido" to Ido
+                    , "Igbo" to Igbo
+                    , "Ijo" to Ijo
+                    , "Iloko" to Iloko
+                    , "Inari Sami" to InariSami
+                    , "Indic (Other)" to Indic
+                    , "Indo-European (Other)" to IndotoEuropean
+                    , "Indonesian" to Indonesian
+                    , "Ingush" to Ingush
+                    , "Interlingua (International Auxiliary Entry Association)" to InterlinguaInternationalAuxiliaryLanguageAssociation
+                    , "Interlingue" to Interlingue
+                    , "Inuktitut" to Inuktitut
+                    , "Inupiaq" to Inupiaq
+                    , "Iranian (Other)" to Iranian
+                    , "Irish" to Irish
+                    , "Irish, Middle (900-1200)" to IrishMiddle900to1200
+                    , "Irish, Old (to 900)" to IrishOldto900
+                    , "Iroquoian languages" to IroquoianLanguages
+                    , "Italian" to Italian
+                    , "Japanese" to Japanese
+                    , "Javanese" to Javanese
+                    , "Judeo-Arabic" to JudeotoArabic
+                    , "Judeo-Persian" to JudeotoPersian
+                    , "Kabardian" to Kabardian
+                    , "Kabyle" to Kabyle
+                    , "Kachin" to Kachin
+                    , "Kalaallisut" to Kalaallisut
+                    , "Kalmyk" to Kalmyk
+                    , "Kamba" to Kamba
+                    , "Kannada" to Kannada
+                    , "Kanuri" to Kanuri
+                    , "Kara-Kalpak" to KaratoKalpak
+                    , "Karachay-Balkar" to KarachaytoBalkar
+                    , "Karen" to Karen
+                    , "Kashmiri" to Kashmiri
+                    , "Kashubian" to Kashubian
+                    , "Kawi" to Kawi
+                    , "Kazakh" to Kazakh
+                    , "Khasi" to Khasi
+                    , "Khmer" to Khmer
+                    , "Khoisan (Other)" to Khoisan
+                    , "Khotanese" to Khotanese
+                    , "Kikuyu" to Kikuyu
+                    , "Kimbundu" to Kimbundu
+                    , "Kinyarwanda" to Kinyarwanda
+                    , "Kirghiz" to Kirghiz
+                    , "Klingon" to Klingon
+                    , "Komi" to Komi
+                    , "Kongo" to Kongo
+                    , "Konkani" to Konkani
+                    , "Korean" to Korean
+                    , "Kosraean" to Kosraean
+                    , "Kpelle" to Kpelle
+                    , "Kru" to Kru
+                    , "Kuanyama" to Kuanyama
+                    , "Kumyk" to Kumyk
+                    , "Kurdish" to Kurdish
+                    , "Kurukh" to Kurukh
+                    , "Kutenai" to Kutenai
+                    , "Ladino" to Ladino
+                    , "Lahnda" to Lahnda
+                    , "Lamba" to Lamba
+                    , "Lao" to Lao
+                    , "Latin" to Latin
+                    , "Latvian" to Latvian
+                    , "Lezghian" to Lezghian
+                    , "Limburgan" to Limburgan
+                    , "Lingala" to Lingala
+                    , "Lithuanian" to Lithuanian
+                    , "Low German" to LowGerman
+                    , "Lozi" to Lozi
+                    , "Luba-Katanga" to LubatoKatanga
+                    , "Luba-Lulua" to LubatoLulua
+                    , "Luiseno" to Luiseno
+                    , "Lule Sami" to LuleSami
+                    , "Lunda" to Lunda
+                    , "Luo (Kenya and Tanzania)" to LuoKenyaAndTanzania
+                    , "lushai" to lushai
+                    , "Luxembourgish" to Luxembourgish
+                    , "Macedonian" to Macedonian
+                    , "Madurese" to Madurese
+                    , "Magahi" to Magahi
+                    , "Maithili" to Maithili
+                    , "Makasar" to Makasar
+                    , "Malagasy" to Malagasy
+                    , "Malay" to Malay
+                    , "Malayalam" to Malayalam
+                    , "Maltese" to Maltese
+                    , "Manchu" to Manchu
+                    , "Mandar" to Mandar
+                    , "Mandingo" to Mandingo
+                    , "Manipuri" to Manipuri
+                    , "Manobo languages" to ManoboLanguages
+                    , "Manx" to Manx
+                    , "Maori" to Maori
+                    , "Marathi" to Marathi
+                    , "Mari" to Mari
+                    , "Marshallese" to Marshallese
+                    , "Marwari" to Marwari
+                    , "Masai" to Masai
+                    , "Mayan languages" to MayanLanguages
+                    , "Mende" to Mende
+                    , "Mi'kmaq" to Mikmaq
+                    , "Minangkabau" to Minangkabau
+                    , "Mirandese" to Mirandese
+                    , "Miscellaneous languages" to MiscellaneousLanguages
+                    , "Mohawk" to Mohawk
+                    , "Moksha" to Moksha
+                    , "Moldavian" to Moldavian
+                    , "Mon-Khmer (Other)" to MontoKhmer
+                    , "Mongo" to Mongo
+                    , "Mongolian" to Mongolian
+                    , "Montenegrin" to Montenegrin
+                    , "Mossi" to Mossi
+                    , "Multiple languages" to MultipleLanguages
+                    , "Munda languages" to MundaLanguages
+                    , "Nahuatl" to Nahuatl
+                    , "Nauru" to Nauru
+                    , "Navajo" to Navajo
+                    , "Ndebele, North" to NdebeleNorth
+                    , "Ndebele, South" to NdebeleSouth
+                    , "Ndonga" to Ndonga
+                    , "Neapolitan" to Neapolitan
+                    , "Nepal Bhasa" to NepalBhasa
+                    , "Nepali" to Nepali
+                    , "Nias" to Nias
+                    , "Niger-Kordofanian (Other)" to NigertoKordofanian
+                    , "Nilo-Saharan (Other)" to NilotoSaharan
+                    , "Niuean" to Niuean
+                    , "Nogai" to Nogai
+                    , "Norse, Old" to NorseOld
+                    , "North American Indian" to NorthAmericanIndian
+                    , "Northern Sami" to NorthernSami
+                    , "Northern Sotho" to NorthernSotho
+                    , "Norwegian" to Norwegian
+                    , "Norwegian Bokmal" to NorwegianBokmal
+                    , "Norwegian Nynorsk" to NorwegianNynorsk
+                    , "Nubian languages" to NubianLanguages
+                    , "Nyamwezi" to Nyamwezi
+                    , "Nyankole" to Nyankole
+                    , "Nyoro" to Nyoro
+                    , "Nzima" to Nzima
+                    , "Occitan" to Occitan
+                    , "Ojibwa" to Ojibwa
+                    , "Oriya" to Oriya
+                    , "Oromo" to Oromo
+                    , "Osage" to Osage
+                    , "Ossetian" to Ossetian
+                    , "Otomian languages" to OtomianLanguages
+                    , "Pahlavi" to Pahlavi
+                    , "Palauan" to Palauan
+                    , "Pali" to Pali
+                    , "Pampanga" to Pampanga
+                    , "Pangasinan" to Pangasinan
+                    , "Panjabi" to Panjabi
+                    , "Papiamento" to Papiamento
+                    , "Papuan (Other)" to Papuan
+                    , "Persian" to Persian
+                    , "Persian, Old (ca.600-400 B.C.)" to PersianOldCa600to400Bc
+                    , "Philippine (Other)" to Philippine
+                    , "Phoenician" to Phoenician
+                    , "Pohnpeian" to Pohnpeian
+                    , "Polish" to Polish
+                    , "Portuguese" to Portuguese
+                    , "Portuguese (BR)" to PortugueseBr
+                    , "Portuguese (MZ)" to PortugueseMz
+                    , "Prakrit languages" to PrakritLanguages
+                    , "Provençal, Old (to 1500)" to ProvencalOldto1500
+                    , "Pushto" to Pushto
+                    , "Quechua" to Quechua
+                    , "Raeto-Romance" to RaetotoRomance
+                    , "Rajasthani" to Rajasthani
+                    , "Rapanui" to Rapanui
+                    , "Rarotongan" to Rarotongan
+                    , "Romance (Other)" to Romance
+                    , "Romanian" to Romanian
+                    , "Romany" to Romany
+                    , "Rundi" to Rundi
+                    , "Russian" to Russian
+                    , "Salishan languages" to SalishanLanguages
+                    , "Samaritan Aramaic" to SamaritanAramaic
+                    , "Sami languages (Other)" to SamiLanguages
+                    , "Samoan" to Samoan
+                    , "Sandawe" to Sandawe
+                    , "Sango" to Sango
+                    , "Sanskrit" to Sanskrit
+                    , "Santali" to Santali
+                    , "Sardinian" to Sardinian
+                    , "Sasak" to Sasak
+                    , "Scots" to Scots
+                    , "Selkup" to Selkup
+                    , "Semitic (Other)" to Semitic
+                    , "Serbian" to Serbian
+                    , "Serer" to Serer
+                    , "Shan" to Shan
+                    , "Shona" to Shona
+                    , "Sichuan Yi" to SichuanYi
+                    , "Sicilian" to Sicilian
+                    , "Sidamo" to Sidamo
+                    , "Sign Languages" to SignLanguages
+                    , "Siksika" to Siksika
+                    , "Sindhi" to Sindhi
+                    , "Sinhalese" to Sinhalese
+                    , "Sino-Tibetan (Other)" to SinotoTibetan
+                    , "Siouan languages" to SiouanLanguages
+                    , "Skolt Sami" to SkoltSami
+                    , "Slave (Athapascan)" to SlaveAthapascan
+                    , "Slavic (Other)" to Slavic
+                    , "Slovak" to Slovak
+                    , "Slovenian" to Slovenian
+                    , "Sogdian" to Sogdian
+                    , "Somali" to Somali
+                    , "Songhai" to Songhai
+                    , "Soninke" to Soninke
+                    , "Sorbian languages" to SorbianLanguages
+                    , "Sotho, Southern" to SothoSouthern
+                    , "South American Indian (Other)" to SouthAmericanIndian
+                    , "Southern Altai" to SouthernAltai
+                    , "Southern Sami" to SouthernSami
+                    , "Spanish" to Spanish
+                    , "Sukuma" to Sukuma
+                    , "Sumerian" to Sumerian
+                    , "Sundanese" to Sundanese
+                    , "Susu" to Susu
+                    , "Swahili" to Swahili
+                    , "Swati" to Swati
+                    , "Swedish" to Swedish
+                    , "Syriac" to Syriac
+                    , "Tagalog" to Tagalog
+                    , "Tahitian" to Tahitian
+                    , "Tai (Other)" to Tai
+                    , "Tajik" to Tajik
+                    , "Tamashek" to Tamashek
+                    , "Tamil" to Tamil
+                    , "Tatar" to Tatar
+                    , "Telugu" to Telugu
+                    , "Tereno" to Tereno
+                    , "Tetum" to Tetum
+                    , "Thai" to Thai
+                    , "Tibetan" to Tibetan
+                    , "Tigre" to Tigre
+                    , "Tigrinya" to Tigrinya
+                    , "Timne" to Timne
+                    , "Tiv" to Tiv
+                    , "Tlingit" to Tlingit
+                    , "Tok Pisin" to TokPisin
+                    , "Tokelau" to Tokelau
+                    , "Tonga (Nyasa)" to TongaNyasa
+                    , "Tonga (Tonga Islands)" to TongaTongaIslands
+                    , "Tsimshian" to Tsimshian
+                    , "Tsonga" to Tsonga
+                    , "Tswana" to Tswana
+                    , "Tumbuka" to Tumbuka
+                    , "Tupi languages" to TupiLanguages
+                    , "Turkish" to Turkish
+                    , "Turkish, Ottoman (1500-1928)" to TurkishOttoman1500to1928
+                    , "Turkmen" to Turkmen
+                    , "Tuvalu" to Tuvalu
+                    , "Tuvinian" to Tuvinian
+                    , "Twi" to Twi
+                    , "Udmurt" to Udmurt
+                    , "Ugaritic" to Ugaritic
+                    , "Uighur" to Uighur
+                    , "Ukrainian" to Ukrainian
+                    , "Umbundu" to Umbundu
+                    , "Undetermined" to Undetermined
+                    , "Urdu" to Urdu
+                    , "Uzbek" to Uzbek
+                    , "Vai" to Vai
+                    , "Venda" to Venda
+                    , "Vietnamese" to Vietnamese
+                    , "Volapük" to Volapuk
+                    , "Votic" to Votic
+                    , "Wakashan languages" to WakashanLanguages
+                    , "Walamo" to Walamo
+                    , "Walloon" to Walloon
+                    , "Waray" to Waray
+                    , "Washo" to Washo
+                    , "Welsh" to Welsh
+                    , "Wolof" to Wolof
+                    , "Xhosa" to Xhosa
+                    , "Yakut" to Yakut
+                    , "Yao" to Yao
+                    , "Yapese" to Yapese
+                    , "Yiddish" to Yiddish
+                    , "Yoruba" to Yoruba
+                    , "Yupik languages" to YupikLanguages
+                    , "Zande" to Zande
+                    , "Zapotec" to Zapotec
+                    , "Zenaga" to Zenaga
+                    , "Zhuang" to Zhuang
+                    , "Zulu" to Zulu
+            )
+        }
+
+        @JvmStatic
+        val supportedLanguages: List<String>
+            get() = languageMapping.keys.toList()
+
+        @JvmStatic
+        fun getCodeByLanguage(language: String): String {
+            return languageMapping[language]!!
+        }
 
     }
 }
+
