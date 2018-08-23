@@ -10,6 +10,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.masterwok.opensubtitlesandroid.extensions.appCompatRequestPermissions
 import com.masterwok.opensubtitlesandroid.extensions.isPermissionGranted
+import com.masterwok.opensubtitlesandroid.models.OpenSubtitleItem
 import com.masterwok.opensubtitlesandroid.services.OpenSubtitlesService
 import java.io.File
 
@@ -58,10 +59,17 @@ class MainActivity : AppCompatActivity() {
                 .subLanguageId(SubtitleLanguage.English)
                 .build()
 
-        val searchResults = subtitleService.search(
-                OpenSubtitlesService.TemporaryUserAgent
-                , url
-        )
+        val searchResults: Array<OpenSubtitleItem>?
+
+        try {
+            searchResults = subtitleService.search(
+                    OpenSubtitlesService.TemporaryUserAgent
+                    , url
+            )
+        } catch (ex: Exception) {
+            Log.e(Tag, "Subtitle query failed.", ex)
+            return
+        }
 
         val firstSubtitleItem = searchResults.firstOrNull()
 
