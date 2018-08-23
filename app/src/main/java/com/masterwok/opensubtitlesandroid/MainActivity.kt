@@ -24,8 +24,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val languages = Subtitle.supportedLanguages
-
         if (!isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             appCompatRequestPermissions(
                     arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -58,6 +56,7 @@ class MainActivity : AppCompatActivity() {
 
         val url = OpenSubtitlesUrlBuilder()
                 .query("Hackers 1995")
+                .subLanguageId(SubtitleLanguage.German)
                 .build()
 
         val searchResults: Array<OpenSubtitleItem>?
@@ -68,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                     , url
             )
         } catch (ex: Exception) {
-            Log.e(Tag, "Subtitle query failed.", ex)
+            Log.e(Tag, "SubtitleLanguage query failed.", ex)
             return
         }
 

@@ -58,7 +58,7 @@ class OpenSubtitlesService : OpenSubtitlesService {
         val zipEntry = zipFile.getByNameOrDefaultToLargest(
                 subtitleItem.SubFileName
                 , subtitleItem.SubFileName.getPathExtension()
-        ) ?: throw RuntimeException("Subtitle zip did not contain promised file.")
+        ) ?: throw RuntimeException("SubtitleLanguage zip did not contain promised file.")
 
         // Copy file to destination.
         val inputStream = InputStreamReader(zipFile.getInputStream(zipEntry))
