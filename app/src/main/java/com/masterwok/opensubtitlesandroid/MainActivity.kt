@@ -72,11 +72,14 @@ class MainActivity : AppCompatActivity() {
 
         val outputFile = File(downloadLocation, firstSubtitleItem.SubFileName)
 
-        subtitleService.downloadSubtitle(
-                this
-                , firstSubtitleItem
-                , Uri.fromFile(outputFile)
-        )
-
+        try {
+            subtitleService.downloadSubtitle(
+                    this
+                    , firstSubtitleItem
+                    , Uri.fromFile(outputFile)
+            )
+        } catch (ex: Exception) {
+            Log.e(Tag, "Failed to download subtitles", ex)
+        }
     }
 }
