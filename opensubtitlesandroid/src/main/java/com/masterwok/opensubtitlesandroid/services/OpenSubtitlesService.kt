@@ -9,7 +9,10 @@ import com.masterwok.opensubtitlesandroid.extensions.getPathExtension
 import com.masterwok.opensubtitlesandroid.models.OpenSubtitleItem
 import com.masterwok.opensubtitlesandroid.services.contracts.OpenSubtitlesService
 import java.io.File
+import java.io.InputStreamReader
 import java.io.OutputStream
+import java.io.OutputStreamWriter
+import java.nio.charset.Charset
 import java.util.zip.ZipFile
 
 
@@ -58,14 +61,17 @@ class OpenSubtitlesService : OpenSubtitlesService {
         ) ?: throw RuntimeException("Subtitle zip did not contain promised file.")
 
         // Copy file to destination.
-        val inputStream = zipFile.getInputStream(zipEntry)
+        val inputStream = InputStreamReader(zipFile.getInputStream(zipEntry))
 
         val outputStream: OutputStream = context
                 .contentResolver
                 .openOutputStream(destinationUri)
                 ?: throw RuntimeException("Failed to open output stream for Uri: $destinationUri")
 
-        inputStream.copyTo(outputStream)
+        inputStream.copyTo(OutputStreamWriter(
+                outputStream
+                , Charset.forName("UTF-8").newEncoder()
+        ))
 
         // Clean up resources
         inputStream.close()
