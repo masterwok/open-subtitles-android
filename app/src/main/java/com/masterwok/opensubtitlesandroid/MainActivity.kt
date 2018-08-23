@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val languages = Subtitle.supportedLanguages
+
         if (!isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             appCompatRequestPermissions(
                     arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -56,7 +58,6 @@ class MainActivity : AppCompatActivity() {
 
         val url = OpenSubtitlesUrlBuilder()
                 .query("Hackers 1995")
-                .subLanguageId(SubtitleLanguage.English)
                 .build()
 
         val searchResults: Array<OpenSubtitleItem>?
