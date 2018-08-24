@@ -961,14 +961,27 @@ class SubtitleLanguage private constructor() {
             )
         }
 
+        /**
+         * Get a list of all of the supported languages.
+         */
         @JvmStatic
         val supportedLanguages: List<String>
             get() = languageMapping.keys.toList()
 
+        /**
+         * Get the language code of the associated [language].
+         */
         @JvmStatic
-        fun getCodeByLanguage(language: String): String {
-            return languageMapping[language]!!
-        }
+        fun getCodeByLanguage(language: String): String? = languageMapping[language]
+
+        /**
+         * Get the language of the associated language [code].
+         */
+        @JvmStatic
+        fun getLanguageByCode(code: String): String? = languageMapping
+                .entries
+                .firstOrNull { it.value == code }
+                ?.key
 
     }
 }
