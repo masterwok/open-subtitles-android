@@ -2,18 +2,12 @@ package com.masterwok.opensubtitlesandroid.services
 
 import android.content.Context
 import android.net.Uri
-import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.httpGet
-import com.masterwok.opensubtitlesandroid.extensions.getByNameOrDefaultToLargest
-import com.masterwok.opensubtitlesandroid.extensions.getPathExtension
 import com.masterwok.opensubtitlesandroid.models.OpenSubtitleItem
 import com.masterwok.opensubtitlesandroid.services.contracts.OpenSubtitlesService
-import java.io.File
-import java.io.InputStreamReader
-import java.io.OutputStream
-import java.io.OutputStreamWriter
-import java.nio.charset.Charset
-import java.util.zip.ZipFile
+import java.net.HttpURLConnection
+import java.net.URL
+import java.util.zip.GZIPInputStream
 
 
 class OpenSubtitlesService : OpenSubtitlesService {
@@ -46,37 +40,20 @@ class OpenSubtitlesService : OpenSubtitlesService {
             , subtitleItem: OpenSubtitleItem
             , destinationUri: Uri
     ) {
-        val tmpZipFile = File.createTempFile("sub", ".zip")
+        val url = URL(subtitleItem.SubDownloadLink)
+        val urlConnection = url.openConnection() as HttpURLConnection
+        val inputStream = GZIPInputStream(urlConnection.inputStream)
 
-        // Download zip file specified in subtitle item.
-        Fuel.download(subtitleItem.ZipDownloadLink).destination { _, _ ->
-            tmpZipFile
-        }.response()
-
-        val zipFile = ZipFile(tmpZipFile)
-
-        val zipEntry = zipFile.getByNameOrDefaultToLargest(
-                subtitleItem.SubFileName
-                , subtitleItem.SubFileName.getPathExtension()
-        ) ?: throw RuntimeException("SubtitleLanguage zip did not contain promised file.")
-
-        // Copy file to destination.
-        val inputStream = InputStreamReader(zipFile.getInputStream(zipEntry))
-
-        val outputStream: OutputStream = context
+        val outputStream = context
                 .contentResolver
                 .openOutputStream(destinationUri)
                 ?: throw RuntimeException("Failed to open output stream for Uri: $destinationUri")
 
-        inputStream.copyTo(OutputStreamWriter(
-                outputStream
-                , Charset.forName("UTF-8").newEncoder()
-        ))
+        inputStream.copyTo(outputStream)
 
         // Clean up resources
         inputStream.close()
         outputStream.close()
-        tmpZipFile.delete()
     }
 
 }
