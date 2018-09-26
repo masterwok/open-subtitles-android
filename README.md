@@ -40,6 +40,10 @@ service.downloadSubtitle(
 )
 ```
 
+## Projects using open-subtitles-android
+- [Bit Cast](https://play.google.com/store/apps/details?id=com.masterwok.bitcast)
+- [simple-vlc-player](https://github.com/masterwok/simple-vlc-player)
+
 
 ## Configuration
 
