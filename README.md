@@ -40,11 +40,6 @@ service.downloadSubtitle(
 )
 ```
 
-## Projects using open-subtitles-android
-- [Bit Cast](https://play.google.com/store/apps/details?id=com.masterwok.bitcast)
-- [simple-vlc-player](https://github.com/masterwok/simple-vlc-player)
-
-
 ## Configuration
 
 Add this in your root build.gradle at the end of repositories:
@@ -62,3 +57,8 @@ dependencies {
     implementation 'com.github.masterwok:open-subtitles-android:0.0.7'
 }
 ```
+
+## Projects using open-subtitles-android
+- [Bit Cast](https://play.google.com/store/apps/details?id=com.masterwok.bitcast)
+- [simple-vlc-player](https://github.com/masterwok/simple-vlc-player)
+
