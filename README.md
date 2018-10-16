@@ -55,6 +55,6 @@ and add the following in the dependent module:
 
 ```gradle
 dependencies {
-    implementation 'com.github.masterwok:open-subtitles-android:0.0.7'
+    implementation 'com.github.masterwok:open-subtitles-android:0.0.8'
 }
 ```
