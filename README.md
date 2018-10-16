@@ -16,7 +16,7 @@ val url = OpenSubtitlesUrlBuilder()
 // url = "https://rest.opensubtitles.org/search/query-Hackers+1995/sublanguageid-ger"
 ```
 
-For available query parameters, take a look at the [OpenSubtitlesUrlBuilder](https://github.com/masterwok/open-subtitles-android/blob/master/opensubtitlesandroid/src/main/java/com/masterwok/opensubtitlesandroid/OpenSubtitlesUrlBuilder.kt) class. For available language codes, take a look at the [available language codes here](https://www.opensubtitles.org/addons/export_languages.php).
+For available query parameters, take a look at the [OpenSubtitlesUrlBuilder](https://github.com/masterwok/open-subtitles-android/blob/master/opensubtitlesandroid/src/main/java/com/masterwok/opensubtitlesandroid/OpenSubtitlesUrlBuilder.kt) class. For available language codes, take a look at the "IdSubLanguage" column of the [available language codes here](https://www.opensubtitles.org/addons/export_languages.php).
 
 The```OpenSubtitlesService``` class is used to query and download subtitles. For example, to search for subtitles one can do the following:
 
