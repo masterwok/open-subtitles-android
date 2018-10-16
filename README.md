@@ -10,13 +10,13 @@ The ```OpenSubtitlesUrlBuilder``` is used to build a valid Open Subtitels url ([
 ```kotlin
 val url = OpenSubtitlesUrlBuilder()
         .query("Hackers 1995")
-        .subLanguageId(SubtitleLanguage.German)
+        .subLanguageId("ger")
         .build()
         
 // url = "https://rest.opensubtitles.org/search/query-Hackers+1995/sublanguageid-ger"
 ```
 
-For available query parameters, take a look at the [OpenSubtitlesUrlBuilder](https://github.com/masterwok/open-subtitles-android/blob/master/opensubtitlesandroid/src/main/java/com/masterwok/opensubtitlesandroid/OpenSubtitlesUrlBuilder.kt) class.
+For available query parameters, take a look at the [OpenSubtitlesUrlBuilder](https://github.com/masterwok/open-subtitles-android/blob/master/opensubtitlesandroid/src/main/java/com/masterwok/opensubtitlesandroid/OpenSubtitlesUrlBuilder.kt) class. For available language codes, take a look at the ```IdSubLanguage``` column of the [available language codes here](https://www.opensubtitles.org/addons/export_languages.php).
 
 The```OpenSubtitlesService``` class is used to query and download subtitles. For example, to search for subtitles one can do the following:
 
@@ -54,7 +54,7 @@ and add the following in the dependent module:
 
 ```gradle
 dependencies {
-    implementation 'com.github.masterwok:open-subtitles-android:0.0.7'
+    implementation 'com.github.masterwok:open-subtitles-android:0.0.8'
 }
 ```
 
