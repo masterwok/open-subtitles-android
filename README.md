@@ -10,7 +10,7 @@ The ```OpenSubtitlesUrlBuilder``` is used to build a valid Open Subtitels url ([
 ```kotlin
 val url = OpenSubtitlesUrlBuilder()
         .query("Hackers 1995")
-        .subLanguageId(SubtitleLanguage.German)
+        .subLanguageId("ger")
         .build()
         
 // url = "https://rest.opensubtitles.org/search/query-Hackers+1995/sublanguageid-ger"
